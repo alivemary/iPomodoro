@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/iPomodoro.js"></script>
+</head>
+<body class="text-center">
+    <header><h1>iPomodoro Clock</h1></header>
+    <div id="mainWin" class="hidden container-fluid">
+        <div class="row">
+            <div id="leftControl" class="col-sm-6 col-xs-6 text-right">
+                <button class="btn" value="b-">-</button>
+                <span id="breakTime">5</span>
+                <button class="btn" value="b+">+</button>
+            </div>
+            <div id="rightControl" class="col-sm-6 col-xs-6 text-left">
+                <button class="btn" value="l-">-</button>
+                <span id="longTime">25</span>
+                <button class="btn" value="l+">+</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 text-center">
+                <button id="timerView" value="t">25:00<br /> Click!</button>
+            </div>
+        </div>
+    </div>
+    <div id="loadWin">Loading...</div>
+    <div id="failWin" class="hidden">Error!</div>
+    <footer>By Maryna Martynenko</footer>
+</body>
+</html>
