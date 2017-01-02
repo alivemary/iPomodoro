@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var interval;
+$(document).ready(function () {
 
     $('button').on('click', function () {
         switch (this.value) {
@@ -31,16 +32,27 @@
             case 't': {
                 var total = 60 * Number($('#longTime').html());
                 var elapsed = 0;
-                var interval = setInterval(function () {
+                var min = Math.floor(total/60);
+                var sec = total % 60;
+                interval = setInterval(function () {
                     if (elapsed < total) {
                         total -= 1;
-                        $('#timerView').html(total + ":00<br /> Click!");
+                        min = Math.floor(total/60);
+                        sec = total % 60;
+                        $('#timerView').html(min + ":" + sec+"<br>Stop!");
+                        $('#timerView').val('s');
                     }
                     else {
                         clearInterval(interval);
                         alert('Done');
                     }
                 }, 1000)
+                break;
+            }
+            case 's': {
+                clearInterval(interval);
+                $('#timerView').val('t');
+                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
                 break;
             }
         }
