@@ -1,52 +1,76 @@
 ﻿var interval;
-$(document).ready(function () {
 
+$(document).ready(function () {
+    function minusV(name) {
+        if (Number($(name).html() > 0)) {
+            $(name).html((Number($(name).html()) - 1).toString());
+        }
+    }
+    function plusV(name) {
+        if (Number($(name).html() < 99)) {
+            $(name).html((Number($(name).html()) + 1).toString());
+        }
+    }
+    
+    function setLongTimer(total) {
+        var elapsed = 0;
+        var min, sec;
+        
+        interval = setInterval(function () {
+            if (elapsed < total) {
+                total -= 1;
+                min = Math.floor(total / 60);
+                sec = total % 60;
+                $('#timerView').html(min + ":" + sec + "<br>Stop!");
+                $('#timerView').val('s');
+            }
+            else {
+                clearInterval(interval);
+                setShortTimer(60 * Number($('#breakTime').html()));
+            }
+        }, 100);
+    }
+    function setShortTimer(total) {
+        var elapsed = 0;
+        var min, sec;
+        
+        interval = setInterval(function () {
+            if (elapsed < total) {
+                total -= 1;
+                min = Math.floor(total / 60);
+                sec = total % 60;
+                $('#timerView').html(min + ":" + sec + "<br>Stop!");
+                $('#timerView').val('s');
+            }
+            else {
+                clearInterval(interval);
+                setLongTimer(60 * Number($('#longTime').html()));
+            }
+        }, 100);
+    }
     $('button').on('click', function () {
         switch (this.value) {
             case 'b-': {
-                if (Number($('#breakTime').html()>0)) {
-                    $('#breakTime').html((Number($('#breakTime').html()) - 1).toString());
-                }
+                minusV('#breakTime');
                 break;
             }
             case 'b+': {
-                if (Number($('#breakTime').html() < 99)) {
-                    $('#breakTime').html((Number($('#breakTime').html()) + 1).toString());
-                }
+                plusV('#breakTime');
                 break;
             }
             case 'l-': {
-                if (Number($('#longTime').html() > 0)) {
-                    $('#longTime').html((Number($('#longTime').html()) - 1).toString());
-                    $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
-                }
+                minusV('#longTime');
+                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
                 break;
             }
             case 'l+': {
-                if (Number($('#longTime').html() < 99)) {
-                    $('#longTime').html((Number($('#longTime').html()) + 1).toString());
-                    $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
-                }
+                plusV('#longTime');
+                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
                 break;
             }
             case 't': {
                 var total = 60 * Number($('#longTime').html());
-                var elapsed = 0;
-                var min = Math.floor(total/60);
-                var sec = total % 60;
-                interval = setInterval(function () {
-                    if (elapsed < total) {
-                        total -= 1;
-                        min = Math.floor(total/60);
-                        sec = total % 60;
-                        $('#timerView').html(min + ":" + sec+"<br>Stop!");
-                        $('#timerView').val('s');
-                    }
-                    else {
-                        clearInterval(interval);
-                        alert('Done');
-                    }
-                }, 1000)
+                setLongTimer(total);
                 break;
             }
             case 's': {
