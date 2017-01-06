@@ -13,40 +13,49 @@ $(document).ready(function () {
     }
     
     function setLongTimer(total) {
-        var elapsed = 0;
+       
         var min, sec;
-        
+        var startTime = new Date().getTime();
+        var stopTime = startTime + total * 1000;
+        var leftTime = stopTime - startTime;
+       
         interval = setInterval(function () {
-            if (elapsed < total) {
-                total -= 1;
-                min = Math.floor(total / 60);
-                sec = total % 60;
-                $('#timerView').html(min + ":" + sec + "<br>Stop!");
+            var now = new Date().getTime();
+            leftTime = stopTime - now;
+            if (now <= stopTime) {
+                min = Math.floor(leftTime / 60000);
+                sec = Math.floor((leftTime / 1000) % 60);
+                if (sec < 10) sec = "0" + sec;
+                $('#timerView').html(min + ":" + sec + "<br>Session");
                 $('#timerView').val('s');
             }
             else {
                 clearInterval(interval);
                 setShortTimer(60 * Number($('#breakTime').html()));
             }
-        }, 100);
+        }, 250);
     }
     function setShortTimer(total) {
-        var elapsed = 0;
         var min, sec;
-        
+        var startTime = new Date().getTime();
+        var stopTime = startTime + total * 1000;
+        var leftTime = stopTime - startTime;
+
         interval = setInterval(function () {
-            if (elapsed < total) {
-                total -= 1;
-                min = Math.floor(total / 60);
-                sec = total % 60;
-                $('#timerView').html(min + ":" + sec + "<br>Stop!");
+            var now = new Date().getTime();
+            leftTime = stopTime - now;
+            if (now <= stopTime) {
+                min = Math.floor(leftTime / 60000);
+                sec = Math.floor((leftTime / 1000) % 60);
+                if (sec < 10) sec = "0" + sec;
+                $('#timerView').html(min + ":" + sec + "<br>Break");
                 $('#timerView').val('s');
             }
             else {
                 clearInterval(interval);
                 setLongTimer(60 * Number($('#longTime').html()));
             }
-        }, 100);
+        }, 250);
     }
     $('button').on('click', function () {
         switch (this.value) {
