@@ -35,6 +35,9 @@ header {
     background-color: darkgray;
     font-size: 70px;
 }
+#timerStatus {
+    font-size: 40px;
+}
 #leftControl {
     padding-right: 50px;
 }

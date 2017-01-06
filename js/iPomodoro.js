@@ -1,5 +1,5 @@
 ﻿var interval;
-
+//TODO: do not witch to session after pause in break timer
 $(document).ready(function () {
     function minusV(name) {
         if (Number($(name).html() > 0)) {
@@ -26,12 +26,13 @@ $(document).ready(function () {
                 min = Math.floor(leftTime / 60000);
                 sec = Math.floor((leftTime / 1000) % 60);
                 if (sec < 10) sec = "0" + sec;
-                $('#timerView').html(min + ":" + sec + "<br>Session");
+                $('#timeLeft').html(min + ":" + sec);
+                $('#timerStatus').html("Session");
                 $('#timerView').val('s');
             }
             else {
                 clearInterval(interval);
-                setShortTimer(60 * Number($('#breakTime').html()));
+                setShortTimer(60*Number($('#breakTime').html()));
             }
         }, 250);
     }
@@ -48,12 +49,13 @@ $(document).ready(function () {
                 min = Math.floor(leftTime / 60000);
                 sec = Math.floor((leftTime / 1000) % 60);
                 if (sec < 10) sec = "0" + sec;
-                $('#timerView').html(min + ":" + sec + "<br>Break");
+                $('#timeLeft').html(min + ":" + sec);
+                $('#timerStatus').html("Break");
                 $('#timerView').val('s');
             }
             else {
                 clearInterval(interval);
-                setLongTimer(60 * Number($('#longTime').html()));
+                setLongTimer(60*Number($('#longTime').html()));
             }
         }, 250);
     }
@@ -69,23 +71,26 @@ $(document).ready(function () {
             }
             case 'l-': {
                 minusV('#longTime');
-                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
+                $('#timeLeft').html($('#longTime').html()+':00');
                 break;
             }
             case 'l+': {
                 plusV('#longTime');
-                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
+                $('#timeLeft').html($('#longTime').html() + ':00');
                 break;
             }
             case 't': {
-                var total = 60 * Number($('#longTime').html());
+                var total = $('#timeLeft').html().split(':');
+                total = Number(total[0]) * 60 + Number(total[1]);
                 setLongTimer(total);
+                $("button").prop("disabled", true);
+                $("#timerView").prop("disabled", false);
                 break;
             }
             case 's': {
                 clearInterval(interval);
                 $('#timerView').val('t');
-                $('#timerView').html($('#longTime').html() + ":00<br /> Click!");
+                $("button").prop("disabled", false);
                 break;
             }
         }
