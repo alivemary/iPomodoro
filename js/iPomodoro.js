@@ -1,15 +1,15 @@
 ﻿var interval;
-//TODO: do not witch to session after pause in break timer
+
 $(document).ready(function () {
     function minusV(name) {
         if (Number($(name).html() > 0)) {
             $(name).html((Number($(name).html()) - 1).toString());
-        }
+            }
     }
     function plusV(name) {
         if (Number($(name).html() < 99)) {
             $(name).html((Number($(name).html()) + 1).toString());
-        }
+            }
     }
     
     function setLongTimer(total) {
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 if (sec < 10) sec = "0" + sec;
                 $('#timeLeft').html(min + ":" + sec);
                 $('#timerStatus').html("Session");
-                $('#timerView').val('s');
+                $('#timerView').val('session');
             }
             else {
                 clearInterval(interval);
@@ -51,7 +51,7 @@ $(document).ready(function () {
                 if (sec < 10) sec = "0" + sec;
                 $('#timeLeft').html(min + ":" + sec);
                 $('#timerStatus').html("Break");
-                $('#timerView').val('s');
+                $('#timerView').val('break');
             }
             else {
                 clearInterval(interval);
@@ -63,23 +63,33 @@ $(document).ready(function () {
         switch (this.value) {
             case 'b-': {
                 minusV('#breakTime');
+                if ($('#timerView').val() == 'pauseB') {
+                    $('#timeLeft').html($('#breakTime').html() + ':00');
+                }
                 break;
             }
             case 'b+': {
                 plusV('#breakTime');
+                if ($('#timerView').val() == 'pauseB') {
+                    $('#timeLeft').html($('#breakTime').html() + ':00');
+                }
                 break;
             }
             case 'l-': {
                 minusV('#longTime');
-                $('#timeLeft').html($('#longTime').html()+':00');
+                if ($('#timerView').val() == 'pauseS') {
+                    $('#timeLeft').html($('#longTime').html() + ':00');
+                }
                 break;
             }
             case 'l+': {
                 plusV('#longTime');
-                $('#timeLeft').html($('#longTime').html() + ':00');
+                if ($('#timerView').val() == 'pauseS') {
+                    $('#timeLeft').html($('#longTime').html() + ':00');
+                }
                 break;
             }
-            case 't': {
+            case 'pauseS': {
                 var total = $('#timeLeft').html().split(':');
                 total = Number(total[0]) * 60 + Number(total[1]);
                 setLongTimer(total);
@@ -87,10 +97,33 @@ $(document).ready(function () {
                 $("#timerView").prop("disabled", false);
                 break;
             }
-            case 's': {
+            case 'pauseB': {
+                var total = $('#timeLeft').html().split(':');
+                total = Number(total[0]) * 60 + Number(total[1]);
+                setShortTimer(total);
+                $("button").prop("disabled", true);
+                $("#timerView").prop("disabled", false);
+                break;
+            }
+            case 'session': {
                 clearInterval(interval);
-                $('#timerView').val('t');
+                $('#timerView').val('pauseS');
                 $("button").prop("disabled", false);
+                break;
+            }
+            case 'break': {
+                clearInterval(interval);
+                $('#timerView').val('pauseB');
+                $("button").prop("disabled", false);
+                break;
+            }
+            case 'reset': {
+                clearInterval(interval);
+                $('#timerView').val('pauseS');
+                $("button").prop("disabled", false);
+                $('#longTime').html('25');
+                $('#breakTime').html('5');
+                $('#timeLeft').html($('#longTime').html() + ':00');
                 break;
             }
         }

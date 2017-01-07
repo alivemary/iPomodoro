@@ -18,21 +18,29 @@
     <div id="mainWin" class="hidden container-fluid">
         <div class="row">
             <div id="leftControl" class="col-sm-6 col-xs-6 text-right">
+                <p>Break (min)</p>
                 <button class="btn" value="b-">-</button>
                 <span id="breakTime">5</span>
                 <button class="btn" value="b+">+</button>
+                
             </div>
             <div id="rightControl" class="col-sm-6 col-xs-6 text-left">
+                <p>Session (min)</p>
                 <button class="btn" value="l-">-</button>
                 <span id="longTime">25</span>
                 <button class="btn" value="l+">+</button>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12 col-xs-12 text-center">
-                <button id="timerView" value="t"><span id="timeLeft">25:00</span><br /><span id="timerStatus">Click!</span></button>
+                <button id="timerView" value="pauseS"><span id="timeLeft">25:00</span><br /><span id="timerStatus">Click!</span></button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-12 col-xs-12 text-center">
+                <button class="btn" id="resetButton" value="reset">Reset</button>
+            </div>
     </div>
     <div id="loadWin">Loading...</div>
     <div id="failWin" class="hidden">Error!</div>

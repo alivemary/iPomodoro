@@ -5,7 +5,7 @@
 }
 header {
     padding-top: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 40px;
 }
 .btn {
     background:    #666;
@@ -20,6 +20,9 @@ header {
     text-shadow:   1px 1px 0 #000;
     width: 30px;
     height: 30px;
+}
+#resetButton{
+    width: 80px;
 }
 #breakTime, #longTime {
     font-size: 25px;
@@ -41,10 +44,19 @@ header {
 #leftControl {
     padding-right: 50px;
 }
+#leftControl>p {
+    
+    font-size:20px;
+}
+#rightControl>p {
+   
+    font-size:20px;
+}
 #rightControl {
     padding-left: 50px;
 }
 footer {
     font-size: 10px;
+    padding-top: 20px;
 }
 
